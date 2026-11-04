@@ -1,6 +1,28 @@
 
 import mongoose, { Schema } from "mongoose";
 
+
+
+
+const ChildSchema = new Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+    },
+    age: {
+      type: Number,
+      required: true,
+    },
+    language: {
+      type: String,
+      enum: ["Kiswahili", "French", "German"],
+      required: true,
+    },
+  },
+  { _id: false }
+);
+
 const TelegramUserSchema = new Schema(
   {
     telegramId: {
@@ -28,6 +50,16 @@ const TelegramUserSchema = new Schema(
       type: String,
       default: "start",
     },
+    parentName: String,
+    childCount: Number,
+    pendingChildName: String,
+    pendingChildAge: Number,
+    children: {
+      type: [ChildSchema],
+      default: [],
+    },
+    trialStartedAt: Date,
+    trialEndsAt: Date,
   },
   { timestamps: true }
 );
